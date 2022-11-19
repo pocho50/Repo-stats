@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import TheNavBar from '@/components/TheNavbar.vue'
 </script>
 
 <template>
-  <button class="m-5 btn btn-primary">One</button>
+  <TheNavBar />
 </template>
