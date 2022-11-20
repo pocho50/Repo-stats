@@ -10,7 +10,7 @@ const props = defineProps<{
 
 <template>
     <div v-if="repos.length > 0" class="overflow-x-auto">
-        <table class="table table-zebra w-full">
+        <table class="table table-compact w-full">
             <!-- head -->
             <thead>
                 <tr>
