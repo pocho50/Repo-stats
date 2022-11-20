@@ -1,23 +1,34 @@
 import { ref } from "vue";
 import type Search from "@/types/Search";
 import type Repo from "@/types/Repo";
+import msg from "@/messages";
 
 export default function useResource() {
   const repos = ref<Repo[] | []>([]);
-  const baseURL = "https://api.github.com/search/repositories";
+  const repo = ref<Repo | null>(null);
+  const baseURL = "https://api.github.com";
+
+  const fetchById = async (id: number) => {
+    // fetch
+    const response = await fetch(baseURL + `repositories/${id}`);
+    if (!response.ok) {
+      throw msg.ERROR_GENERAL;
+    }
+    repo.value = await response.json();
+  };
 
   const fetchByTopic = async (search: Search) => {
     const topic = encodeURIComponent(search.topic);
-    if (!topic) throw "El topic es requerido";
+    if (!topic) throw msg.ERROR_TOPIC;
     const stars = parseInt(search.stars);
 
     // build the query
-    const q = `?q=topic:${topic}&sort=stars&order=desc&per_page=10`;
+    const q = `/search/repositories?q=topic:${topic}&sort=stars&order=desc&per_page=10`;
 
     // fetch
     const response = await fetch(baseURL + q);
     if (!response.ok) {
-      throw "Hubo un error, pruebe mas tarde.";
+      throw msg.ERROR_GENERAL;
     }
     const data = await response.json();
     repos.value = getRepos(data.items, stars);
@@ -41,6 +52,7 @@ export default function useResource() {
   };
 
   return {
+    repo,
     repos,
     fetchByTopic,
   };

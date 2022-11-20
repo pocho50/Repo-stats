@@ -1,6 +1,8 @@
 <script setup lang="ts">
+
 import type Repo from '@/types/Repo';
 import Alert from '@/components/Alert.vue'
+import msg from '@/messages'
 
 const props = defineProps<{
     repos: Repo[],
@@ -28,5 +30,5 @@ const props = defineProps<{
             </tbody>
         </table>
     </div>
-    <Alert v-else msg="No hay resultados" type="alert-default" />
+    <Alert v-else :msg="msg.EMPTY_RESULT" type="alert-default" />
 </template>
