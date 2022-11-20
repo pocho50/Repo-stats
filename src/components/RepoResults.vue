@@ -1,12 +1,13 @@
 <script setup lang="ts">
-// const props = defineProps<{
-//     modelValue?: boolean,
-// }>()
+import type Repo from '@/types/Repo';
+const props = defineProps<{
+    repos: Repo[],
+}>()
 
 </script>
 
 <template>
-    <div class="overflow-x-auto mt-5">
+    <div class="overflow-x-auto">
         <table class="table table-zebra w-full">
             <!-- head -->
             <thead>
@@ -17,10 +18,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Cy Ganderton</td>
-                    <td>Quality Control Specialist</td>
-                    <td>Blue</td>
+                <tr v-for="repo in repos" :key="repo.id">
+                    <td>{{ repo.name }}</td>
+                    <td>{{ repo.url }}</td>
+                    <td>{{ repo.stars }}</td>
                 </tr>
             </tbody>
         </table>
