@@ -24,7 +24,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <div class="card mx-auto w-3/4 bg-base-300 shadow-lg">
+    <div class="card bg-base-300 shadow-lg">
         <div class="card-body">
             <h2 class="card-title">Buscar repo con mas estrellas</h2>
             <form @submit.prevent="handleSubmit">
