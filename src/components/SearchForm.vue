@@ -39,7 +39,7 @@ const handleSubmit = () => {
 
                     <div class="flex-auto ">
                         <label class="label">
-                            <span class="label-text">Minimo estrellas</span>
+                            <span class="label-text">Umbral de estrellas mínimas</span>
                         </label>
                         <input type="number" v-model="stars" placeholder="Estrellas" min="0"
                             class="text-base-content input input-bordered w-full" />

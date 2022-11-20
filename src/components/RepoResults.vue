@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type Repo from '@/types/Repo';
+import Alert from '@/components/Alert.vue'
+
 const props = defineProps<{
     repos: Repo[],
 }>()
@@ -7,7 +9,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="overflow-x-auto">
+    <div v-if="repos.length > 0" class="overflow-x-auto">
         <table class="table table-zebra w-full">
             <!-- head -->
             <thead>
@@ -26,4 +28,5 @@ const props = defineProps<{
             </tbody>
         </table>
     </div>
+    <Alert v-else msg="No hay resultados" type="alert-default" />
 </template>
