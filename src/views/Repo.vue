@@ -3,6 +3,8 @@ import { useRoute } from 'vue-router'
 import useMakeRequest from "@/composables/useMakeRequest"
 import { ref, onMounted } from 'vue';
 import Alert from "@/components/Alert.vue"
+import Stat from "@/components/Stat.vue"
+
 import {
   StarIcon, EyeIcon,
   DocumentDuplicateIcon,
@@ -41,57 +43,33 @@ onMounted(async () => {
     <p>{{ repo?.description }}</p>
     <div class="stats flex flex-wrap shadow mt-5 bg-base-200">
 
-      <div class="stat flex-1">
-        <div class="stat-figure text-secondary">
-          <StarIcon class="w-10 h-10" />
-        </div>
-        <div class="stat-title">Stars</div>
-        <div class="stat-value">{{ repo?.stars }}</div>
-      </div>
+      <Stat :title="'Stars'" :text="repo?.stars" class="flex-1">
+        <StarIcon class="w-10 h-10" />
+      </Stat>
 
-      <div class="stat flex-1">
-        <div class="stat-figure text-secondary">
-          <EyeIcon class="w-10 h-10" />
-        </div>
-        <div class="stat-title">watchers</div>
-        <div class="stat-value">{{ repo?.watchers }}</div>
-      </div>
+      <Stat :title="'Watchers'" :text="repo?.watchers" class="flex-1">
+        <EyeIcon class="w-10 h-10" />
+      </Stat>
 
-      <div class="stat flex-1">
-        <div class="stat-figure text-secondary">
-          <DocumentDuplicateIcon class="w-10 h-10" />
-        </div>
-        <div class="stat-title">forks</div>
-        <div class="stat-value">{{ repo?.forks }}</div>
-      </div>
+      <Stat :title="'Forks'" :text="repo?.forks" class="flex-1">
+        <DocumentDuplicateIcon class="w-10 h-10" />
+      </Stat>
 
     </div>
 
     <div class="stats flex flex-wrap shadow mt-5 bg-base-200">
 
-      <div class="stat flex-1">
-        <div class="stat-figure text-secondary">
-          <DocumentMagnifyingGlassIcon class="w-10 h-10" />
-        </div>
-        <div class="stat-title">open issue</div>
-        <div class="stat-value">{{ repo?.openIssue }}</div>
-      </div>
+      <Stat :title="'Open issue'" :text="repo?.openIssue" class="flex-1">
+        <DocumentMagnifyingGlassIcon class="w-10 h-10" />
+      </Stat>
 
-      <div class="stat flex-1">
-        <div class="stat-figure text-secondary">
-          <UserCircleIcon class="w-10 h-10" />
-        </div>
-        <div class="stat-title">subscribers</div>
-        <div class="stat-value">{{ repo?.subscribers }}</div>
-      </div>
+      <Stat :title="'Subscribers'" :text="repo?.subscribers" class="flex-1">
+        <UserCircleIcon class="w-10 h-10" />
+      </Stat>
 
-      <div class="stat flex-1">
-        <div class="stat-figure text-secondary">
-          <ChartBarIcon class="w-10 h-10" />
-        </div>
-        <div class="stat-title">size</div>
-        <div class="stat-value">{{ repo?.size }} kb</div>
-      </div>
+      <Stat :title="'Size'" :text="`${repo?.size} kb`" class="flex-1">
+        <ChartBarIcon class="w-10 h-10" />
+      </Stat>
 
     </div>
   </div>

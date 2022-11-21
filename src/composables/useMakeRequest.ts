@@ -9,7 +9,7 @@ export default function useResource() {
   const baseURL = "https://api.github.com";
 
   const fetchById = async (id: string) => {
-    // fetch
+    // fetch by id
     const response = await fetch(baseURL + `/repositories/${id}`);
     if (!response.ok) {
       throw msg.ERROR_GENERAL;
@@ -19,14 +19,14 @@ export default function useResource() {
   };
 
   const fetchByTopic = async (search: Search) => {
+    // fetch by topic
     const topic = encodeURIComponent(search.topic);
     if (!topic) throw msg.ERROR_TOPIC;
-    const stars: number = parseInt(search.stars.toFixed(0));
+    const stars: number = Number.isInteger(search.stars) ? search.stars : 0;
 
-    // build the query
+    // build the query, search by topic order by stars, 10 item per page
     const q = `/search/repositories?q=topic:${topic}&sort=stars&order=desc&per_page=10`;
 
-    // fetch
     const response = await fetch(baseURL + q);
     if (!response.ok) {
       throw msg.ERROR_GENERAL;
