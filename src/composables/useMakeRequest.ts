@@ -21,7 +21,7 @@ export default function useResource() {
   const fetchByTopic = async (search: Search) => {
     const topic = encodeURIComponent(search.topic);
     if (!topic) throw msg.ERROR_TOPIC;
-    const stars = parseInt(search.stars);
+    const stars: number = parseInt(search.stars.toFixed(0));
 
     // build the query
     const q = `/search/repositories?q=topic:${topic}&sort=stars&order=desc&per_page=10`;
@@ -35,19 +35,19 @@ export default function useResource() {
     repos.value = getRepos(data.items, stars);
   };
 
-  const getRepos: Repo[] = (items, stars) => {
-    const repos: Repo[] = items.map((item) => {
+  const getRepos = (items: [], stars: number): Repo[] => {
+    const repos: Repo[] = items.map((item: any): Repo => {
       return buildRepo(item);
     });
 
     // filter by min stars
     if (stars > 0) {
-      return repos.filter((repo) => repo.stars >= stars);
+      return repos.filter((repo: Repo) => repo.stars >= stars);
     }
     return repos;
   };
 
-  const buildRepo: Repo = (item) => {
+  const buildRepo = (item: any): Repo => {
     return {
       id: item.id,
       name: item.name,
