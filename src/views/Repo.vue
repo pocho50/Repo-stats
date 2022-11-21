@@ -19,11 +19,9 @@ onMounted(async () => {
   try {
     await fetchById(id)
   } catch (e) {
-    console.log(e)
     error.value = e as string
   }
 })
-
 
 </script>
 <template>
