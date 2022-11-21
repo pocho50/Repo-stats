@@ -26,7 +26,6 @@ const handleSearch = async (newSearch: Search) => {
   } finally {
     loading.value = false
     activeSearch.value = true
-
   }
 
 }

@@ -24,7 +24,8 @@ const props = defineProps<{
             <tbody>
                 <tr v-for="repo in repos" :key="repo.id">
                     <td>
-                        <router-link class="link link-accent" :to="{ name: 'Repo', params: { id: repo.id } }">
+                        <router-link class="link link-accent" :to="{ name: 'Repo', params: { id: repo.id } }"
+                            target="_blank">
                             {{ repo.name }}
                         </router-link>
 

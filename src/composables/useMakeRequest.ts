@@ -8,13 +8,14 @@ export default function useResource() {
   const repo = ref<Repo | null>(null);
   const baseURL = "https://api.github.com";
 
-  const fetchById = async (id: number) => {
+  const fetchById = async (id: string) => {
     // fetch
-    const response = await fetch(baseURL + `repositories/${id}`);
+    const response = await fetch(baseURL + `/repositories/${id}`);
     if (!response.ok) {
       throw msg.ERROR_GENERAL;
     }
-    repo.value = await response.json();
+    const item = await response.json();
+    repo.value = buildRepo(item);
   };
 
   const fetchByTopic = async (search: Search) => {
@@ -36,12 +37,7 @@ export default function useResource() {
 
   const getRepos: Repo[] = (items, stars) => {
     const repos: Repo[] = items.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        url: item.html_url,
-        stars: item.stargazers_count,
-      };
+      return buildRepo(item);
     });
 
     // filter by min stars
@@ -51,9 +47,25 @@ export default function useResource() {
     return repos;
   };
 
+  const buildRepo: Repo = (item) => {
+    return {
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      url: item.html_url,
+      stars: item.stargazers_count,
+      watchers: item.watchers_count,
+      forks: item.forks,
+      openIssue: item.open_issues_count,
+      subscribers: item.subscribers_count,
+      size: item.size,
+    };
+  };
+
   return {
     repo,
     repos,
     fetchByTopic,
+    fetchById,
   };
 }
